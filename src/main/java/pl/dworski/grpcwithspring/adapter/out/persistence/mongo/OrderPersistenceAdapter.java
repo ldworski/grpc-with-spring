@@ -1,11 +1,12 @@
 package pl.dworski.grpcwithspring.adapter.out.persistence.mongo;
 
-import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Component;
 import pl.dworski.grpcwithspring.adapter.out.persistence.mongo.document.OrderDocument;
 import pl.dworski.grpcwithspring.domain.model.Order;
 import pl.dworski.grpcwithspring.domain.port.out.OrderRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Component
 class OrderPersistenceAdapter implements OrderRepository {

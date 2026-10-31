@@ -19,7 +19,7 @@ class MongoTestContainerConfiguration {
                 .withExposedPorts(MONGO_PORT)
                 .withEnv('MONGO_INITDB_ROOT_USERNAME', username)
                 .withEnv('MONGO_INITDB_ROOT_PASSWORD', password)
-                // the entrypoint starts mongod twice: once to create the root user, then for real
+        // the entrypoint starts mongod twice: once to create the root user, then for real
                 .waitingFor(Wait.forLogMessage('.*Waiting for connections.*', 2))
     }
 

@@ -1,7 +1,8 @@
 package pl.dworski.grpcwithspring.domain.port.in;
 
-import java.util.Objects;
 import pl.dworski.grpcwithspring.domain.model.Product;
+
+import java.util.Objects;
 
 public interface CreateProductUseCase {
 

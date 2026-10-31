@@ -1,12 +1,13 @@
 package pl.dworski.grpcwithspring.adapter.out.persistence.mongo;
 
-import java.util.Optional;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 import pl.dworski.grpcwithspring.adapter.out.persistence.mongo.document.UserDocument;
 import pl.dworski.grpcwithspring.domain.exception.UserAlreadyExistsException;
 import pl.dworski.grpcwithspring.domain.model.User;
 import pl.dworski.grpcwithspring.domain.port.out.UserRepository;
+
+import java.util.Optional;
 
 @Component
 class UserPersistenceAdapter implements UserRepository {

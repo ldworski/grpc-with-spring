@@ -1,8 +1,9 @@
 package pl.dworski.grpcwithspring.domain.port.in;
 
+import pl.dworski.grpcwithspring.domain.model.User;
+
 import java.math.BigDecimal;
 import java.util.Objects;
-import pl.dworski.grpcwithspring.domain.model.User;
 
 public interface CreateUserUseCase {
 

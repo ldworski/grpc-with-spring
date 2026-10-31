@@ -1,12 +1,13 @@
 package pl.dworski.grpcwithspring.adapter.out.persistence.mongo;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Component;
 import pl.dworski.grpcwithspring.adapter.out.persistence.mongo.document.ProductDocument;
 import pl.dworski.grpcwithspring.domain.model.Product;
 import pl.dworski.grpcwithspring.domain.port.out.ProductRepository;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 class ProductPersistenceAdapter implements ProductRepository {
