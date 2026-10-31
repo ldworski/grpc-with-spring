@@ -5,8 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project state
 
 Early-stage Spring Boot app: an order system (users order products) exposed via gRPC and backed by MongoDB. So far it
-has the domain model, the persistence layer (ports + Mongo adapter) and the create-user and create-product use cases
-with their gRPC endpoints (`UserService` in `src/main/proto/user.proto`, `ProductService` in
+has the domain model, the persistence layer (ports + Mongo adapter) and use cases with gRPC endpoints: create-user
+(`UserService` in `src/main/proto/user.proto`), create-product and paged get-products (`ProductService` in
 `src/main/proto/product.proto`). `HelloGrpcService` (`HelloService` in `hello.proto`, in `adapter.in.grpc`) is a
 leftover hello-world endpoint.
 
@@ -14,8 +14,12 @@ leftover hello-world endpoint.
 
 - `domain.model`: plain Java records `Product`, `User`, `Order`, `OrderItem` with invariants in compact constructors. No
   Spring or Mongo annotations. `id` is `null` until persisted.
-- `domain.port.in`: inbound ports (use cases, e.g. `CreateUserUseCase` with a nested `CreateUserCommand`), to be called
-  by inbound adapters (gRPC endpoints).
+- `domain.model.paging`: pagination types `PageQuery` (page from 0, default size 20, size above 50 is capped to 50,
+  `PageQuery.of(null, null)` gives the defaults) and `Page<T>` (with computed `totalPages()`). Ports use these, never
+  Spring Data's `Pageable`/`Page`. Persistence adapters sort paged results by `id`.
+- `domain.port.in`: inbound ports (use cases), to be called by inbound adapters (gRPC endpoints). Each use case has its
+  own interface with a nested input record: `*Command` for writes (e.g. `CreateUserUseCase.CreateUserCommand`),
+  `*Query` for reads (e.g. `GetProductsUseCase.GetProductsQuery`).
 - `domain.service`: use case implementations (e.g. `CreateUserService`). They depend only on ports and have no Spring
   annotations. They are registered as beans in `config.DomainConfiguration`.
 - `domain.exception`: domain exceptions (e.g. `UserAlreadyExistsException`, thrown when the email is already taken).
@@ -35,9 +39,11 @@ leftover hello-world endpoint.
   mapping lives in public `*GrpcMapper` utility classes in the `adapter.in.grpc.mapper` subpackage. Domain exceptions
   map to gRPC statuses in the endpoint: `UserAlreadyExistsException` → `ALREADY_EXISTS`, `IllegalArgumentException`
   (domain validation, unparsable numbers) → `INVALID_ARGUMENT`. Money goes over the wire as a decimal `string`, never as
-  `double`. Required numeric request fields are declared `optional` in proto (e.g. `initial_stock_quantity`), so the
-  mapper can tell a missing value from `0` via `has...()` and reject it with `IllegalArgumentException` (→
-  `INVALID_ARGUMENT`).
+  `double`. Numeric request fields where a missing value differs from `0` are declared `optional` in proto, so the
+  mapper can check `has...()`: required ones (e.g. `initial_stock_quantity`) are rejected with
+  `IllegalArgumentException` (→ `INVALID_ARGUMENT`), and paging fields (`page`, `page_size`) fall back to the
+  `PageQuery` defaults. Paged responses return the size actually used (after capping) and
+  `total_elements`/`total_pages`.
 
 ## Stack
 
