@@ -1,0 +1,6 @@
+### Call HelloService/SayHello (select the environment)
+GRPC {{grpc-host}}/pl.dworski.grpcwithspring.HelloService/SayHello
+
+{
+  "name": "Luke"
+}

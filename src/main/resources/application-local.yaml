@@ -1,0 +1,9 @@
+# Matches the MongoDB container from compose.yaml
+spring:
+  mongodb:
+    host: localhost
+    port: 27017
+    database: grpc-with-spring
+    username: grpc
+    password: grpc-local-password
+    authentication-database: admin

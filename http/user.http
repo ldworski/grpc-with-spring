@@ -1,0 +1,7 @@
+### Call UserService/CreateUser (select the environment)
+GRPC {{grpc-host}}/pl.dworski.grpcwithspring.UserService/CreateUser
+
+{
+  "email": "luke@example.com",
+  "initial_balance": "100.50"
+}

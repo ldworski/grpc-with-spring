@@ -1,0 +1,6 @@
+spring:
+  mongodb:
+    database: grpc-with-spring-test
+    username: grpc-test
+    password: grpc-test-password
+    authentication-database: admin

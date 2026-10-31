@@ -1,3 +1,16 @@
 spring:
   application:
     name: grpc-with-spring
+  profiles:
+    default: prod
+  data:
+    mongodb:
+      # creates indexes declared with @Indexed (e.g. unique user email) on startup
+      auto-index-creation: true
+  mongodb:
+    host: ${MONGODB_HOST}
+    port: ${MONGODB_PORT}
+    database: ${MONGODB_DATABASE}
+    username: ${MONGODB_USERNAME}
+    password: ${MONGODB_PASSWORD}
+    authentication-database: ${MONGODB_AUTH_DATABASE}
