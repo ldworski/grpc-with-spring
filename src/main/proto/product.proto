@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package pl.dworski.grpcwithspring;
+
+option java_multiple_files = true;
+option java_package = "pl.dworski.grpcwithspring.proto";
+option java_outer_classname = "ProductProto";
+
+service ProductService {
+  rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
+}
+
+message CreateProductRequest {
+  string name = 1;
+  optional int32 initial_stock_quantity = 2;
+}
+
+message CreateProductResponse {
+  Product product = 1;
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  int32 stock_quantity = 3;
+}
