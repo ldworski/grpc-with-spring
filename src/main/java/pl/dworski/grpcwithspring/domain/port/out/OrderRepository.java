@@ -1,8 +1,9 @@
 package pl.dworski.grpcwithspring.domain.port.out;
 
+import pl.dworski.grpcwithspring.domain.model.Order;
+
 import java.util.List;
 import java.util.Optional;
-import pl.dworski.grpcwithspring.domain.model.Order;
 
 public interface OrderRepository {
 

@@ -1,10 +1,11 @@
 package pl.dworski.grpcwithspring.adapter.out.persistence.mongo.document;
 
-import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.dworski.grpcwithspring.domain.model.Order;
+
+import java.util.List;
 
 @Document("orders")
 public record OrderDocument(@Id String id, @Indexed String userId, List<OrderItemDocument> items) {

@@ -1,12 +1,13 @@
 package pl.dworski.grpcwithspring.adapter.out.persistence.mongo.document;
 
-import java.math.BigDecimal;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import pl.dworski.grpcwithspring.domain.model.User;
+
+import java.math.BigDecimal;
 
 @Document("users")
 public record UserDocument(

@@ -1,9 +1,10 @@
 package pl.dworski.grpcwithspring.domain.port.out;
 
+import pl.dworski.grpcwithspring.domain.model.Product;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import pl.dworski.grpcwithspring.domain.model.Product;
 
 public interface ProductRepository {
 

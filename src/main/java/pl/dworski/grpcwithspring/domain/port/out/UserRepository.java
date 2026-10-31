@@ -1,7 +1,8 @@
 package pl.dworski.grpcwithspring.domain.port.out;
 
-import java.util.Optional;
 import pl.dworski.grpcwithspring.domain.model.User;
+
+import java.util.Optional;
 
 public interface UserRepository {
 

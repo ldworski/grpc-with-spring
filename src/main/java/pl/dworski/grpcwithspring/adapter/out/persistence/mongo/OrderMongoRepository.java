@@ -1,8 +1,9 @@
 package pl.dworski.grpcwithspring.adapter.out.persistence.mongo;
 
-import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import pl.dworski.grpcwithspring.adapter.out.persistence.mongo.document.OrderDocument;
+
+import java.util.List;
 
 interface OrderMongoRepository extends MongoRepository<OrderDocument, String> {
 

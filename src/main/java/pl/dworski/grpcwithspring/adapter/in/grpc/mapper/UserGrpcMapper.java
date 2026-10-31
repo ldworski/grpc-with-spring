@@ -1,10 +1,11 @@
 package pl.dworski.grpcwithspring.adapter.in.grpc.mapper;
 
-import java.math.BigDecimal;
 import pl.dworski.grpcwithspring.domain.model.User;
 import pl.dworski.grpcwithspring.domain.port.in.CreateUserUseCase.CreateUserCommand;
 import pl.dworski.grpcwithspring.proto.CreateUserRequest;
 import pl.dworski.grpcwithspring.proto.CreateUserResponse;
+
+import java.math.BigDecimal;
 
 public final class UserGrpcMapper {
 
