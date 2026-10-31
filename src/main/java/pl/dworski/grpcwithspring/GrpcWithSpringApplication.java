@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GrpcWithSpringApplication {
 
     public static void main(String[] args) {
+        if (true) {
+            throw new IllegalArgumentException("should fail");
+        }
         SpringApplication.run(GrpcWithSpringApplication.class, args);
     }
 
