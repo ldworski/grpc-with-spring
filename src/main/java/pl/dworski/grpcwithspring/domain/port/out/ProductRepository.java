@@ -18,4 +18,6 @@ public interface ProductRepository {
 
     Page<Product> findAll(PageQuery pageQuery);
 
+    boolean decreaseStockIfAvailable(String productId, int quantity);
+
 }

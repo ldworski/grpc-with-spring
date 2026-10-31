@@ -106,6 +106,29 @@ class ProductPersistenceAdapterSpec extends Specification {
         page.totalPages() == 0
     }
 
+    def "decreases stock when enough items are available"() {
+        given:
+        def saved = productRepository.save(Product.create('Keyboard', 5))
+
+        expect:
+        productRepository.decreaseStockIfAvailable(saved.id(), 5)
+        productRepository.findById(saved.id()).get().stockQuantity() == 0
+    }
+
+    def "does not decrease stock when fewer items are available than requested"() {
+        given:
+        def saved = productRepository.save(Product.create('Keyboard', 2))
+
+        expect:
+        !productRepository.decreaseStockIfAvailable(saved.id(), 3)
+        productRepository.findById(saved.id()).get().stockQuantity() == 2
+    }
+
+    def "does not decrease stock of an unknown product"() {
+        expect:
+        !productRepository.decreaseStockIfAvailable('000000000000000000000000', 1)
+    }
+
     def "returns empty for unknown id"() {
         expect:
         productRepository.findById('000000000000000000000000').isEmpty()

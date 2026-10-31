@@ -6,13 +6,26 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: grpc
       MONGO_INITDB_ROOT_PASSWORD: grpc-local-password
+    command:
+      - bash
+      - -c
+      - >-
+        head -c 756 /dev/urandom | base64 -w 0 > /data/keyfile
+        && chown mongodb:mongodb /data/keyfile && chmod 400 /data/keyfile
+        && exec docker-entrypoint.sh mongod --replSet rs0 --keyFile /data/keyfile
     volumes:
       - mongodb-data:/data/db
     healthcheck:
-      test: [ "CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')" ]
-      interval: 10s
+      test:
+        - CMD-SHELL
+        - >-
+          mongosh --quiet -u "$$MONGO_INITDB_ROOT_USERNAME" -p "$$MONGO_INITDB_ROOT_PASSWORD"
+          --authenticationDatabase admin
+          --eval "try { rs.status() } catch (e) { rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]}) };
+          db.hello().isWritablePrimary || quit(1)"
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
 
 volumes:
   mongodb-data:
