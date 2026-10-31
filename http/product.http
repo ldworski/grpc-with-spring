@@ -5,3 +5,11 @@ GRPC {{grpc-host}}/pl.dworski.grpcwithspring.ProductService/CreateProduct
   "name": "Keyboard",
   "initial_stock_quantity": 10
 }
+
+### Call ProductService/GetProducts (select the environment)
+GRPC {{grpc-host}}/pl.dworski.grpcwithspring.ProductService/GetProducts
+
+{
+  "page": 0,
+  "page_size": 20
+}
